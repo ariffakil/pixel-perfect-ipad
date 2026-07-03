@@ -133,8 +133,8 @@ function Dashboard() {
   ];
 
   return (
-    <main className="min-h-screen w-full p-5 lg:p-8 flex items-center justify-center">
-      <div className="w-full max-w-[1400px] card-panel p-6 lg:p-8">
+    <main className="min-h-screen w-full p-5 md:p-8 flex items-center justify-center">
+      <div className="w-full max-w-[1400px] card-panel p-6 md:p-8">
         {/* Header */}
         <header className="flex items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-4 min-w-0">
@@ -145,7 +145,7 @@ function Dashboard() {
               </div>
             </div>
             <div className="min-w-0">
-              <h1 className="text-3xl lg:text-4xl font-bold text-white truncate">Akil Group</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-white truncate">Akil Group</h1>
               <p className="text-xs tracking-[0.3em] text-teal/80 mt-1">ATTENDANCE SYSTEM</p>
             </div>
           </div>
@@ -163,7 +163,7 @@ function Dashboard() {
         </header>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr_1fr] gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1fr] gap-5">
           {/* Clock Panel */}
           <section className="card-panel p-5 flex flex-col">
             <div className="flex items-start justify-between mb-3">
@@ -190,7 +190,7 @@ function Dashboard() {
           </section>
 
           {/* Recent Logs */}
-          <section className="card-panel p-5">
+          <section className="card-panel p-5 md:col-span-2 lg:col-span-1 md:order-3 lg:order-none">
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs tracking-[0.25em] text-teal/80">RECENT LOGS</p>
               <button className="flex items-center gap-1 text-sm text-teal hover:text-teal-glow">
@@ -242,14 +242,14 @@ function Dashboard() {
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 mt-5">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-5">
           {stats.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="card-panel p-4 flex flex-col items-center gap-2">
-                <Icon className={`w-7 h-7 ${s.color}`} strokeWidth={1.8} />
-                <div className={`text-4xl font-bold ${s.color}`}>{s.value}</div>
-                <p className="text-[10px] tracking-[0.25em] text-muted-foreground text-center">{s.label}</p>
+              <div key={s.label} className="card-panel p-3 md:p-4 flex flex-col items-center gap-2">
+                <Icon className={`w-6 h-6 md:w-7 md:h-7 ${s.color}`} strokeWidth={1.8} />
+                <div className={`text-3xl md:text-4xl font-bold ${s.color}`}>{s.value}</div>
+                <p className="text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.25em] text-muted-foreground text-center whitespace-nowrap">{s.label}</p>
               </div>
             );
           })}

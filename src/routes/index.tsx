@@ -163,7 +163,7 @@ function Dashboard() {
         </header>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1fr] gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1fr] gap-5">
           {/* Clock Panel */}
           <section className="card-panel p-5 flex flex-col">
             <div className="flex items-start justify-between mb-3">
@@ -190,7 +190,7 @@ function Dashboard() {
           </section>
 
           {/* Recent Logs */}
-          <section className="card-panel p-5">
+          <section className="card-panel p-5 md:col-span-2 lg:col-span-1 md:order-3 lg:order-none">
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs tracking-[0.25em] text-teal/80">RECENT LOGS</p>
               <button className="flex items-center gap-1 text-sm text-teal hover:text-teal-glow">
@@ -242,7 +242,7 @@ function Dashboard() {
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mt-5">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-5">
           {stats.map((s) => {
             const Icon = s.icon;
             return (

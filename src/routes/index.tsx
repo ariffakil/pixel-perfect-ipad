@@ -138,7 +138,7 @@ function Dashboard() {
     <main className="min-h-screen w-full p-5 md:p-8 flex items-center justify-center">
       <div className="w-full max-w-[1400px] card-panel p-6 md:p-8">
         {/* Header */}
-        <header className="flex items-center justify-between gap-4 mb-6">
+        <header className="card-panel p-4 md:p-5 flex items-center justify-between gap-4 mb-5">
           <div className="flex items-center gap-4 min-w-0">
             <div className="relative shrink-0">
               <div className="w-16 h-16 grid place-items-center rounded-2xl border border-teal/40 bg-teal/5 teal-glow"

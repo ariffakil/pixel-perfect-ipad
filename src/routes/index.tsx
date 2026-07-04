@@ -184,8 +184,7 @@ function Dashboard() {
             </div>
             <div className="text-center">
               <div className="font-mono text-3xl font-bold text-white tracking-wider">
-                {displayHH}<span className="text-teal">:</span>{mm}<span className="text-teal">:</span>{ss}
-                <span className="text-teal text-xl ml-2">{ampm}</span>
+                {hh}<span className="text-teal">:</span>{mm}<span className="text-teal">:</span>{ss}
               </div>
               <p className="text-[10px] tracking-[0.3em] text-teal/80 mt-1">CURRENT TIME</p>
             </div>

@@ -96,13 +96,15 @@ function AnalogClock({ date }: { date: Date }) {
       />
       {/* Second hand */}
       <line
-        x1="100" y1="108"
+        x1={100 - 14 * Math.sin((secDeg * Math.PI) / 180)}
+        y1={100 + 14 * Math.cos((secDeg * Math.PI) / 180)}
         x2={100 + 70 * Math.sin((secDeg * Math.PI) / 180)}
         y2={100 - 70 * Math.cos((secDeg * Math.PI) / 180)}
         stroke="oklch(0.82 0.16 75)"
-        strokeWidth="1.2"
+        strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <circle cx="100" cy="100" r="4" fill="oklch(0.82 0.16 75)" />
       <circle cx="100" cy="100" r="1.5" fill="oklch(0.15 0.02 220)" />
     </svg>

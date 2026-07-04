@@ -22,10 +22,10 @@ export const Route = createFileRoute("/")({
 });
 
 const logs = [
-  { name: "Michael Anderson", dept: "Engineering", time: "03:45 PM", status: "IN", img: person1 },
-  { name: "Sophia Chen", dept: "Marketing", time: "03:32 PM", status: "IN", img: person2 },
-  { name: "Olivia Martinez", dept: "Design", time: "02:18 PM", status: "OUT", img: person3 },
-  { name: "James Wilson", dept: "Operations", time: "01:47 PM", status: "OUT", img: person4 },
+  { name: "Michael Anderson", dept: "Engineering", time: "15:45", status: "IN", img: person1 },
+  { name: "Sophia Chen", dept: "Marketing", time: "15:32", status: "IN", img: person2 },
+  { name: "Olivia Martinez", dept: "Design", time: "14:18", status: "OUT", img: person3 },
+  { name: "James Wilson", dept: "Operations", time: "13:47", status: "OUT", img: person4 },
 ];
 
 function AnalogClock({ date }: { date: Date }) {

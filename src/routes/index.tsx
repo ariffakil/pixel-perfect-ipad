@@ -248,10 +248,11 @@ function Dashboard() {
           {stats.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="card-panel p-3 md:p-4 flex flex-col items-center gap-2">
+              <div key={s.label} className="card-panel px-2 py-3 md:p-4 flex flex-col items-center gap-2 min-w-0">
                 <Icon className={`w-6 h-6 md:w-7 md:h-7 ${s.color}`} strokeWidth={1.8} />
                 <div className={`text-3xl md:text-4xl font-bold ${s.color}`}>{s.value}</div>
-                <p className="text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.25em] text-muted-foreground text-center whitespace-nowrap">{s.label}</p>
+                <p className="text-[8px] md:text-[10px] tracking-[0.15em] md:tracking-[0.25em] text-muted-foreground text-center whitespace-nowrap">{s.label}</p>
+
               </div>
             );
           })}

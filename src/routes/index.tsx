@@ -225,9 +225,8 @@ function Dashboard() {
 
           {/* Inside Office */}
           <section className="card-panel p-5 flex flex-col items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-20"
-                 style={{ backgroundImage: "radial-gradient(oklch(0.82 0.15 180 / 0.4) 1px, transparent 1px)", backgroundSize: "12px 12px" }} />
             <div className="relative flex flex-col items-center gap-4">
+
               <div className="relative">
                 <div className="w-36 h-36 grid place-items-center border-2 border-teal/50 teal-glow"
                      style={{ clipPath: "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)" }}>

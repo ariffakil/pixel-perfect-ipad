@@ -29,7 +29,7 @@ const logs = [
 ];
 
 const ACCENT = "#f4c33a";
-const SURFACE = "#e8ebf0";
+const SURFACE = "#d1d9e6";
 
 function AnalogClock({ date }: { date: Date }) {
   const h = date.getHours() % 12;
@@ -43,8 +43,8 @@ function AnalogClock({ date }: { date: Date }) {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="face" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#f2f4f8" />
-          <stop offset="100%" stopColor="#d9dee6" />
+          <stop offset="0%" stopColor="#dce3ee" />
+          <stop offset="100%" stopColor="#b8c3d4" />
         </radialGradient>
         <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur in="SourceAlpha" stdDeviation="3" />

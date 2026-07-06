@@ -28,7 +28,7 @@ const logs = [
   { name: "James Wilson", dept: "Operations", time: "13:47:15", status: "OUT", img: person4 },
 ];
 
-const ACCENT = "#f4c33a";
+const ACCENT = "#b8860b";
 const SURFACE = "#d1d9e6";
 
 function AnalogClock({ date }: { date: Date }) {

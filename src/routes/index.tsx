@@ -4,13 +4,13 @@ import {
   Building2,
   MapPin,
   LogOut,
-  CalendarCheck,
   ChevronRight,
   Users,
   CalendarDays,
   UserX,
   LogIn,
   Home,
+  CalendarCheck,
 } from "lucide-react";
 import person1 from "@/assets/person1.jpg";
 import person2 from "@/assets/person2.jpg";
@@ -28,6 +28,9 @@ const logs = [
   { name: "James Wilson", dept: "Operations", time: "13:47:15", status: "OUT", img: person4 },
 ];
 
+const ACCENT = "#f4c33a";
+const SURFACE = "#e8ebf0";
+
 function AnalogClock({ date }: { date: Date }) {
   const h = date.getHours() % 12;
   const m = date.getMinutes();
@@ -40,12 +43,19 @@ function AnalogClock({ date }: { date: Date }) {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="face" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="oklch(0.24 0.02 220)" />
-          <stop offset="100%" stopColor="oklch(0.14 0.02 225)" />
+          <stop offset="0%" stopColor="#f2f4f8" />
+          <stop offset="100%" stopColor="#d9dee6" />
         </radialGradient>
+        <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+          <feOffset dx="3" dy="3" result="offset" />
+          <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowDiff" />
+          <feFlood floodColor="#a3b1c6" floodOpacity="0.6" />
+          <feComposite in2="shadowDiff" operator="in" />
+          <feComposite in2="SourceGraphic" operator="over" />
+        </filter>
       </defs>
-      <circle cx="100" cy="100" r="92" fill="url(#face)" stroke="oklch(0.35 0.05 195 / 0.5)" strokeWidth="1.5" />
-      <circle cx="100" cy="100" r="86" fill="none" stroke="oklch(0.82 0.15 180 / 0.15)" strokeWidth="0.5" />
+      <circle cx="100" cy="100" r="92" fill="url(#face)" filter="url(#innerShadow)" />
       {Array.from({ length: 60 }).map((_, i) => {
         const angle = (i * 6 * Math.PI) / 180;
         const isHour = i % 5 === 0;
@@ -59,54 +69,43 @@ function AnalogClock({ date }: { date: Date }) {
           <line
             key={i}
             x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke="oklch(0.82 0.15 180)"
+            stroke={isHour ? "#5a6372" : "#a3b1c6"}
             strokeWidth={isHour ? 2 : 0.6}
-            opacity={isHour ? 0.9 : 0.4}
             strokeLinecap="round"
           />
         );
       })}
       {[12, 3, 6, 9].map((n, i) => {
         const angle = (i * 90 * Math.PI) / 180;
-        const x = 100 + 66 * Math.sin(angle);
-        const y = 100 - 66 * Math.cos(angle) + 5;
+        const x = 100 + 64 * Math.sin(angle);
+        const y = 100 - 64 * Math.cos(angle) + 5;
         return (
-          <text key={n} x={x} y={y} textAnchor="middle" fill="oklch(0.9 0.03 195)" fontSize="14" fontFamily="Space Grotesk" fontWeight="500">
+          <text key={n} x={x} y={y} textAnchor="middle" fill="#2b2f38" fontSize="14" fontFamily="Nunito" fontWeight="700">
             {n}
           </text>
         );
       })}
-      {/* Hour hand */}
       <line
         x1="100" y1="100"
         x2={100 + 42 * Math.sin((hourDeg * Math.PI) / 180)}
         y2={100 - 42 * Math.cos((hourDeg * Math.PI) / 180)}
-        stroke="oklch(0.85 0.18 180)"
-        strokeWidth="4"
-        strokeLinecap="round"
+        stroke="#2b2f38" strokeWidth="4" strokeLinecap="round"
       />
-      {/* Minute hand */}
       <line
         x1="100" y1="100"
         x2={100 + 62 * Math.sin((minDeg * Math.PI) / 180)}
         y2={100 - 62 * Math.cos((minDeg * Math.PI) / 180)}
-        stroke="oklch(0.9 0.12 185)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
+        stroke="#5a6372" strokeWidth="2.5" strokeLinecap="round"
       />
-      {/* Second hand */}
       <line
         x1={100 - 14 * Math.sin((secDeg * Math.PI) / 180)}
         y1={100 + 14 * Math.cos((secDeg * Math.PI) / 180)}
         x2={100 + 70 * Math.sin((secDeg * Math.PI) / 180)}
         y2={100 - 70 * Math.cos((secDeg * Math.PI) / 180)}
-        stroke="oklch(0.82 0.16 75)"
-        strokeWidth="1.4"
-        strokeLinecap="round"
+        stroke={ACCENT} strokeWidth="1.6" strokeLinecap="round"
       />
-
-      <circle cx="100" cy="100" r="4" fill="oklch(0.82 0.16 75)" />
-      <circle cx="100" cy="100" r="1.5" fill="oklch(0.15 0.02 220)" />
+      <circle cx="100" cy="100" r="4.5" fill={ACCENT} />
+      <circle cx="100" cy="100" r="1.5" fill="#2b2f38" />
     </svg>
   );
 }
@@ -119,103 +118,98 @@ function Dashboard() {
   }, []);
 
   const timeStr = now.toLocaleTimeString("en-US", { hour12: false }).split(":");
-  const hh = timeStr[0];
-  const mm = timeStr[1];
-  const ss = timeStr[2];
-  const ampm = now.getHours() >= 12 ? "PM" : "AM";
-  const displayHH = String(((now.getHours() + 11) % 12) + 1).padStart(2, "0");
+  const [hh, mm, ss] = timeStr;
 
   const stats = [
-    { label: "TOTAL STAFF", value: 50, icon: Users, color: "text-teal" },
-    { label: "PRESENT", value: 42, icon: CalendarDays, color: "text-[oklch(0.78_0.20_145)]" },
-    { label: "ABSENT", value: 8, icon: UserX, color: "text-[oklch(0.68_0.22_25)]" },
-    { label: "TOTAL IN", value: 38, icon: LogIn, color: "text-teal" },
-    { label: "TOTAL OUT", value: 30, icon: LogOut, color: "text-[oklch(0.78_0.16_65)]" },
-    { label: "INSIDE OFFICE", value: 8, icon: Home, color: "text-teal" },
+    { label: "TOTAL STAFF", value: 50, icon: Users },
+    { label: "PRESENT", value: 42, icon: CalendarDays },
+    { label: "ABSENT", value: 8, icon: UserX },
+    { label: "TOTAL IN", value: 38, icon: LogIn },
+    { label: "TOTAL OUT", value: 30, icon: LogOut },
+    { label: "INSIDE OFFICE", value: 8, icon: Home },
   ];
 
   return (
-    <main className="min-h-screen w-full p-5 md:p-8 flex items-center justify-center">
-      <div className="w-full max-w-[1400px] card-panel p-6 md:p-8">
+    <main className="min-h-screen w-full p-5 md:p-8 flex items-center justify-center" style={{ background: SURFACE }}>
+      <div className="w-full max-w-[1400px] neo p-6 md:p-8">
         {/* Header */}
-        <header className="card-panel p-4 md:p-5 flex items-center justify-between gap-4 mb-5">
+        <header className="neo-sm p-4 md:p-5 flex items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-4 min-w-0">
-            <div className="relative shrink-0">
-              <div className="w-16 h-16 grid place-items-center rounded-2xl border border-teal/40 bg-teal/5 teal-glow"
-                   style={{ clipPath: "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)" }}>
-                <Building2 className="w-7 h-7 text-teal" />
-              </div>
+            <div className="neo-circle w-16 h-16 grid place-items-center shrink-0">
+              <Building2 className="w-7 h-7" style={{ color: ACCENT }} strokeWidth={2.2} />
             </div>
             <div className="min-w-0">
-              <h1 className="text-3xl md:text-4xl font-bold text-white truncate">Akil Group</h1>
-              <p className="text-xs tracking-[0.3em] text-teal/80 mt-1">ATTENDANCE SYSTEM</p>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-foreground truncate">Akil Group</h1>
+              <p className="text-[11px] tracking-[0.3em] text-muted-foreground mt-1 font-semibold">ATTENDANCE SYSTEM</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <button className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-teal/30 bg-card/60 hover:bg-card transition">
-              <MapPin className="w-4 h-4 text-teal" />
-              <span className="text-sm text-white">Dubai Main Branch</span>
+            <button className="neo-sm flex items-center gap-3 px-5 py-3 hover:brightness-[0.98] active:shadow-inner transition">
+              <MapPin className="w-4 h-4" style={{ color: ACCENT }} />
+              <span className="text-sm font-semibold text-foreground">Dubai Main Branch</span>
               <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
             </button>
-            <button className="w-12 h-12 grid place-items-center rounded-2xl border border-teal/30 bg-card/60 hover:bg-card transition">
-              <LogOut className="w-5 h-5 text-teal" />
+            <button className="neo-circle w-12 h-12 grid place-items-center hover:brightness-[0.98] transition">
+              <LogOut className="w-5 h-5" style={{ color: ACCENT }} />
             </button>
           </div>
         </header>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1fr] gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1fr] gap-6">
           {/* Clock Panel */}
-          <section className="card-panel p-5 flex flex-col">
+          <section className="neo-sm p-5 flex flex-col">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <p className="text-xs tracking-[0.25em] text-teal/80">WEDNESDAY</p>
-                <p className="text-2xl font-semibold text-white mt-1">July 1, 2026</p>
+                <p className="text-[11px] tracking-[0.25em] text-muted-foreground font-bold">WEDNESDAY</p>
+                <p className="text-2xl font-extrabold text-foreground mt-1">July 1, 2026</p>
               </div>
-              <button className="w-10 h-10 grid place-items-center rounded-xl border border-teal/30 bg-teal/5">
-                <CalendarCheck className="w-5 h-5 text-teal" />
-              </button>
+              <div className="neo-circle w-10 h-10 grid place-items-center">
+                <CalendarCheck className="w-5 h-5" style={{ color: ACCENT }} />
+              </div>
             </div>
             <div className="flex-1 grid place-items-center py-3">
-              <div className="w-full max-w-[280px] aspect-square">
+              <div className="w-full max-w-[280px] aspect-square neo-circle p-3">
                 <AnalogClock date={now} />
               </div>
             </div>
-            <div className="text-center">
-              <div className="font-mono text-3xl font-bold text-white tracking-wider">
-                {hh}<span className="text-teal">:</span>{mm}<span className="text-teal">:</span>{ss}
+            <div className="neo-inset mt-4 py-3 text-center">
+              <div className="font-mono text-3xl font-extrabold text-foreground tracking-wider">
+                {hh}<span style={{ color: ACCENT }}>:</span>{mm}<span style={{ color: ACCENT }}>:</span>{ss}
               </div>
-              <p className="text-[10px] tracking-[0.3em] text-teal/80 mt-1">CURRENT TIME</p>
+              <p className="text-[10px] tracking-[0.3em] text-muted-foreground mt-1 font-bold">CURRENT TIME</p>
             </div>
           </section>
 
           {/* Recent Logs */}
-          <section className="card-panel p-5 md:col-span-2 lg:col-span-1 md:order-3 lg:order-none">
+          <section className="neo-sm p-5 md:col-span-2 lg:col-span-1 md:order-3 lg:order-none">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs tracking-[0.25em] text-teal/80">RECENT LOGS</p>
-              <button className="flex items-center gap-1 text-sm text-teal hover:text-teal-glow">
+              <p className="text-[11px] tracking-[0.25em] text-muted-foreground font-bold">RECENT LOGS</p>
+              <button className="flex items-center gap-1 text-sm font-semibold" style={{ color: ACCENT }}>
                 View all <ChevronRight className="w-4 h-4" />
               </button>
             </div>
             <div className="space-y-3">
               {logs.map((log) => (
-                <div key={log.name} className="flex items-center gap-3 p-3 rounded-2xl bg-[oklch(0.19_0.02_225)] border border-border/50">
-                  <span className={`w-2 h-2 rounded-full shrink-0 ${log.status === "IN" ? "bg-[oklch(0.78_0.20_145)]" : "bg-[oklch(0.68_0.22_25)]"}`} />
-                  <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-teal/30 shrink-0">
-                    <img src={log.img} alt={log.name} loading="lazy" width={44} height={44} className="w-full h-full object-cover" />
+                <div key={log.name} className="neo-inset flex items-center gap-3 p-3">
+                  <span className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ background: log.status === "IN" ? "#5cb85c" : "#e0533d",
+                                 boxShadow: `0 0 8px ${log.status === "IN" ? "#5cb85c" : "#e0533d"}` }} />
+                  <div className="neo-circle w-11 h-11 p-[3px] shrink-0">
+                    <img src={log.img} alt={log.name} loading="lazy" width={44} height={44} className="w-full h-full object-cover rounded-full" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-medium truncate">{log.name}</p>
+                    <p className="text-foreground font-bold truncate">{log.name}</p>
                     <p className="text-xs text-muted-foreground truncate">{log.dept}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <span className="text-sm text-white/90 font-mono">{log.time}</span>
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border ${
-                      log.status === "IN"
-                        ? "text-[oklch(0.82_0.20_150)] border-[oklch(0.78_0.20_145)]/40 bg-[oklch(0.78_0.20_145)]/10"
-                        : "text-[oklch(0.75_0.22_25)] border-[oklch(0.68_0.22_25)]/40 bg-[oklch(0.68_0.22_25)]/10"
-                    }`}>{log.status}</span>
+                    <span className="text-sm font-mono font-bold text-foreground">{log.time}</span>
+                    <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md"
+                          style={{
+                            background: log.status === "IN" ? "rgba(92,184,92,0.15)" : "rgba(224,83,61,0.15)",
+                            color: log.status === "IN" ? "#3d8b3d" : "#c0392b",
+                          }}>{log.status}</span>
                   </div>
                 </div>
               ))}
@@ -223,34 +217,31 @@ function Dashboard() {
           </section>
 
           {/* Inside Office */}
-          <section className="card-panel p-5 flex flex-col items-center justify-center relative overflow-hidden">
-            <div className="relative flex flex-col items-center gap-4">
-
-              <div className="relative">
-                <div className="w-36 h-36 grid place-items-center border-2 border-teal/50 teal-glow"
-                     style={{ clipPath: "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)" }}>
-                  <Home className="w-14 h-14 text-teal text-glow" strokeWidth={1.5} />
-                </div>
+          <section className="neo-sm p-6 flex flex-col items-center justify-center gap-5">
+            <div className="neo-circle w-36 h-36 grid place-items-center">
+              <div className="neo-circle-inset w-28 h-28 grid place-items-center">
+                <Home className="w-12 h-12" style={{ color: ACCENT }} strokeWidth={1.8} />
               </div>
-              <div className="text-center">
-                <div className="text-7xl font-bold text-teal text-glow leading-none">8</div>
-                <p className="text-xs tracking-[0.3em] text-teal/90 mt-3">INSIDE OFFICE</p>
-                <p className="text-xs text-muted-foreground mt-1">16% of total staff</p>
-              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-7xl font-extrabold leading-none" style={{ color: ACCENT, textShadow: "1px 1px 2px rgba(163,177,198,0.6), -1px -1px 2px rgba(255,255,255,0.9)" }}>8</div>
+              <p className="text-[11px] tracking-[0.3em] text-foreground/70 mt-3 font-bold">INSIDE OFFICE</p>
+              <p className="text-xs text-muted-foreground mt-1">16% of total staff</p>
             </div>
           </section>
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-5">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-5 mt-6">
           {stats.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="card-panel px-2 py-3 md:p-4 flex flex-col items-center gap-2 min-w-0">
-                <Icon className={`w-6 h-6 md:w-7 md:h-7 ${s.color}`} strokeWidth={1.8} />
-                <div className={`text-3xl md:text-4xl font-bold ${s.color}`}>{s.value}</div>
-                <p className="text-[8px] md:text-[10px] tracking-[0.15em] md:tracking-[0.25em] text-muted-foreground text-center whitespace-nowrap">{s.label}</p>
-
+              <div key={s.label} className="neo-sm px-2 py-4 md:p-4 flex flex-col items-center gap-2 min-w-0">
+                <div className="neo-circle-inset w-10 h-10 md:w-11 md:h-11 grid place-items-center">
+                  <Icon className="w-5 h-5" style={{ color: ACCENT }} strokeWidth={2} />
+                </div>
+                <div className="text-3xl md:text-4xl font-extrabold text-foreground">{s.value}</div>
+                <p className="text-[8px] md:text-[10px] tracking-[0.15em] md:tracking-[0.22em] text-muted-foreground font-bold text-center whitespace-nowrap">{s.label}</p>
               </div>
             );
           })}

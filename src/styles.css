@@ -22,35 +22,34 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
-  --color-teal: var(--teal);
-  --color-teal-glow: var(--teal-glow);
+  --color-teal: var(--accent-yellow);
+  --color-teal-glow: var(--accent-yellow);
+  --color-accent-yellow: var(--accent-yellow);
   --color-success: var(--success);
   --color-danger: var(--danger);
-  --color-warning: var(--warning);
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --color-warning: var(--accent-yellow);
+  --font-display: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --radius: 1.25rem;
-  --background: oklch(0.16 0.02 220);
-  --foreground: oklch(0.96 0.01 200);
-  --card: oklch(0.20 0.02 220);
-  --card-foreground: oklch(0.96 0.01 200);
-  --primary: oklch(0.82 0.15 180);
-  --primary-foreground: oklch(0.15 0.02 220);
-  --muted: oklch(0.24 0.02 220);
-  --muted-foreground: oklch(0.65 0.02 200);
-  --accent: oklch(0.28 0.03 220);
-  --accent-foreground: oklch(0.96 0.01 200);
-  --border: oklch(0.30 0.03 200 / 40%);
-  --teal: oklch(0.82 0.15 180);
-  --teal-glow: oklch(0.85 0.18 175);
-  --success: oklch(0.78 0.20 145);
-  --danger: oklch(0.68 0.22 25);
-  --warning: oklch(0.78 0.16 65);
-  --card-inner: oklch(0.22 0.02 220);
-  --shadow-glow: 0 0 20px oklch(0.82 0.15 180 / 0.35);
+  --background: #e8ebf0;
+  --foreground: #2b2f38;
+  --card: #e8ebf0;
+  --card-foreground: #2b2f38;
+  --primary: #f4c33a;
+  --primary-foreground: #2b2f38;
+  --muted: #dfe3ea;
+  --muted-foreground: #8b93a3;
+  --accent: #eef1f6;
+  --accent-foreground: #2b2f38;
+  --border: rgba(163, 177, 198, 0.35);
+  --accent-yellow: #f4c33a;
+  --success: oklch(0.72 0.16 145);
+  --danger: oklch(0.62 0.22 25);
+  --neo-light: #ffffff;
+  --neo-dark: #a3b1c6;
 }
 
 @layer base {
@@ -61,24 +60,58 @@
     height: 100%;
   }
   body {
-    background: radial-gradient(ellipse at top, oklch(0.19 0.03 220) 0%, oklch(0.13 0.02 225) 100%);
+    background: #e8ebf0;
     color: var(--color-foreground);
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
   }
 }
 
+/* Convex raised surface */
+@utility neo {
+  background: #e8ebf0;
+  border-radius: 1.75rem;
+  box-shadow: 10px 10px 24px rgba(163, 177, 198, 0.55), -10px -10px 24px rgba(255, 255, 255, 0.95);
+}
+
+/* Smaller raised element */
+@utility neo-sm {
+  background: #e8ebf0;
+  border-radius: 1rem;
+  box-shadow: 6px 6px 14px rgba(163, 177, 198, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.95);
+}
+
+/* Inset / pressed surface */
+@utility neo-inset {
+  background: #e8ebf0;
+  border-radius: 1.25rem;
+  box-shadow: inset 6px 6px 12px rgba(163, 177, 198, 0.55), inset -6px -6px 12px rgba(255, 255, 255, 0.95);
+}
+
+/* Circular raised button */
+@utility neo-circle {
+  background: #e8ebf0;
+  border-radius: 9999px;
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.95);
+}
+
+@utility neo-circle-inset {
+  background: #e8ebf0;
+  border-radius: 9999px;
+  box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.55), inset -5px -5px 10px rgba(255, 255, 255, 0.95);
+}
+
+/* Legacy alias so untouched markup keeps working */
 @utility card-panel {
-  background: linear-gradient(160deg, oklch(0.22 0.025 220) 0%, oklch(0.18 0.02 225) 100%);
-  border: 1px solid oklch(0.35 0.04 195 / 0.25);
-  border-radius: 1.5rem;
-  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.04), 0 20px 40px -20px oklch(0 0 0 / 0.6);
+  background: #e8ebf0;
+  border-radius: 1.75rem;
+  box-shadow: 10px 10px 24px rgba(163, 177, 198, 0.55), -10px -10px 24px rgba(255, 255, 255, 0.95);
 }
 
 @utility teal-glow {
-  box-shadow: 0 0 24px oklch(0.82 0.15 180 / 0.4), inset 0 0 20px oklch(0.82 0.15 180 / 0.08);
+  box-shadow: 6px 6px 14px rgba(163, 177, 198, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.95);
 }
 
 @utility text-glow {
-  text-shadow: 0 0 18px oklch(0.82 0.18 180 / 0.55);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 }

@@ -29,7 +29,7 @@ const logs = [
 ];
 
 const ACCENT = "#f4c33a";
-const SURFACE = "#e8ebf0";
+const SURFACE = "#d1d9e6";
 
 function AnalogClock({ date }: { date: Date }) {
   const h = date.getHours() % 12;

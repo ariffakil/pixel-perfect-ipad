@@ -174,7 +174,7 @@ function Dashboard() {
                 <AnalogClock date={now} />
               </div>
             </div>
-            <div className="neo-inset mt-4 py-3 text-center">
+            <div className="mt-4 py-3 text-center">
               <div className="font-mono text-3xl font-extrabold text-foreground tracking-wider">
                 {hh}<span style={{ color: ACCENT }}>:</span>{mm}<span style={{ color: ACCENT }}>:</span>{ss}
               </div>

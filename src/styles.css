@@ -60,7 +60,7 @@
     height: 100%;
   }
   body {
-    background: #e8ebf0;
+    background: #d1d9e6;
     color: var(--color-foreground);
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
@@ -69,49 +69,49 @@
 
 /* Convex raised surface */
 @utility neo {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 1.75rem;
-  box-shadow: 10px 10px 24px rgba(163, 177, 198, 0.55), -10px -10px 24px rgba(255, 255, 255, 0.95);
+  box-shadow: 12px 12px 28px rgba(140, 155, 178, 0.75), -12px -12px 28px rgba(255, 255, 255, 0.9);
 }
 
 /* Smaller raised element */
 @utility neo-sm {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 1rem;
-  box-shadow: 6px 6px 14px rgba(163, 177, 198, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.95);
+  box-shadow: 7px 7px 16px rgba(140, 155, 178, 0.7), -7px -7px 16px rgba(255, 255, 255, 0.9);
 }
 
 /* Inset / pressed surface */
 @utility neo-inset {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 1.25rem;
-  box-shadow: inset 6px 6px 12px rgba(163, 177, 198, 0.55), inset -6px -6px 12px rgba(255, 255, 255, 0.95);
+  box-shadow: inset 6px 6px 12px rgba(140, 155, 178, 0.7), inset -6px -6px 12px rgba(255, 255, 255, 0.9);
 }
 
 /* Circular raised button */
 @utility neo-circle {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 9999px;
-  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.95);
+  box-shadow: 7px 7px 14px rgba(140, 155, 178, 0.7), -7px -7px 14px rgba(255, 255, 255, 0.9);
 }
 
 @utility neo-circle-inset {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 9999px;
-  box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.55), inset -5px -5px 10px rgba(255, 255, 255, 0.95);
+  box-shadow: inset 5px 5px 10px rgba(140, 155, 178, 0.7), inset -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
-/* Legacy alias so untouched markup keeps working */
+/* Legacy alias */
 @utility card-panel {
-  background: #e8ebf0;
+  background: #d1d9e6;
   border-radius: 1.75rem;
-  box-shadow: 10px 10px 24px rgba(163, 177, 198, 0.55), -10px -10px 24px rgba(255, 255, 255, 0.95);
+  box-shadow: 12px 12px 28px rgba(140, 155, 178, 0.75), -12px -12px 28px rgba(255, 255, 255, 0.9);
 }
 
 @utility teal-glow {
-  box-shadow: 6px 6px 14px rgba(163, 177, 198, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.95);
+  box-shadow: 7px 7px 14px rgba(140, 155, 178, 0.7), -7px -7px 14px rgba(255, 255, 255, 0.9);
 }
 
 @utility text-glow {
-  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  text-shadow: 1px 1px 2px rgba(140, 155, 178, 0.6), -1px -1px 2px rgba(255, 255, 255, 0.9);
 }

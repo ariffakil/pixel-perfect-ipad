@@ -34,22 +34,22 @@
 
 :root {
   --radius: 1.25rem;
-  --background: #e8ebf0;
+  --background: #d1d9e6;
   --foreground: #2b2f38;
-  --card: #e8ebf0;
+  --card: #d1d9e6;
   --card-foreground: #2b2f38;
   --primary: #f4c33a;
   --primary-foreground: #2b2f38;
-  --muted: #dfe3ea;
-  --muted-foreground: #8b93a3;
-  --accent: #eef1f6;
+  --muted: #c7cfdc;
+  --muted-foreground: #7a8394;
+  --accent: #d7dfec;
   --accent-foreground: #2b2f38;
-  --border: rgba(163, 177, 198, 0.35);
+  --border: rgba(140, 155, 178, 0.4);
   --accent-yellow: #f4c33a;
   --success: oklch(0.72 0.16 145);
   --danger: oklch(0.62 0.22 25);
   --neo-light: #ffffff;
-  --neo-dark: #a3b1c6;
+  --neo-dark: #8ea0bd;
 }
 
 @layer base {
